@@ -78,10 +78,7 @@ python address_search_mlit.py
 
 データファイルは ``combined_result.csv`` です。使い方や画面は同じですが、郵便番号は表示されません。
 
-
 こちらのデータは、「国土数値情報 (位置参照情報)」(国土交通省) (https://nlftp.mlit.go.jp/cgi-bin/isj/dls/_choose_method.cgi) を加工して作成しました。
-
-
 
 ## 免責事項
 
@@ -89,7 +86,7 @@ python address_search_mlit.py
 
 ## 出典情報
 
- 国土交通省国土数値情報ダウンロードサイト（https://nlftp.mlit.go.jp/cgi-bin/isj/dls/_choose_method.cgi）
+ 国土交通省国土数値情報ダウンロードサイト(https://nlftp.mlit.go.jp/cgi-bin/isj/dls/_choose_method.cgi)
 
 本スクリプトおよび補助ツールなどの作成にあたっては、Claude 3.5 Sonnet を利用しています。
 
