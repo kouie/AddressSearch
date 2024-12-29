@@ -4,7 +4,7 @@ import os
 from fuzzywuzzy import fuzz
 import pyperclip
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QListWidget, QLabel, QSlider, QHBoxLayout, QComboBox, QPushButton
-from PyQt5.QtCore import QTimer, Qt, QSettings
+from PyQt5.QtCore import QTimer, Qt, QSettings, QPoint, QSize
 import sys
 from PyQt5.QtGui import QFont
 
@@ -135,7 +135,6 @@ class AddressSearchApp(QWidget):
 
     def initUI(self):
         layout = QVBoxLayout()
-        
 
         self.label = QLabel("検索文字列")
         self.label.setFont(QFont('SansSerif', 11))
@@ -279,13 +278,29 @@ class AddressSearchApp(QWidget):
         self.setLayout(layout)
 
 
-        self.setWindowTitle("住所検索結果")
-        self.setGeometry(1400, 100, 500, 200)
-        self.setFixedSize(520,300)
-        
+        self.setWindowTitle("住所検索")
+#        self.setGeometry(1400, 100, 500, 200)
+#        self.setFixedSize(520,300)
+
+        self.settings = QSettings('address_search.ini', QSettings.IniFormat)
+        self.resize(self.settings.value("size", QSize(520, 300)))
+        self.move(self.settings.value("pos", QPoint(50, 50)))
+        self.load_settings()
+
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.check_clipboard)
         self.timer.start(500)  # 500ミリ秒ごとにクリップボードをチェック
+
+    def load_settings(self):
+        # ウィンドウ位置とサイズを復元
+        self.resize(self.settings.value("size", self.size()))
+        self.move(self.settings.value("pos", self.pos()))
+
+    def closeEvent(self, event):
+        # ウィンドウ位置とサイズを保存
+        self.settings.setValue("size", self.size())
+        self.settings.setValue("pos", self.pos())
+        super().closeEvent(event)
 
     def update_timer(self, value):
         if value == "0":
